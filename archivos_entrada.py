@@ -1,8 +1,18 @@
 import xml.etree.ElementTree as ET
+from lista_enlazada.lista_simple_enlazada import lista_siemple_enlazada
+
+lista = lista_siemple_enlazada
 
 def leerXML():
 
-    tree  = ET.parse('archivo.xml')
+    print('')
+    print('')
+    print('Escriba el nombre y extension del archivo')
+    ruta = input()
+
+
+
+    tree  = ET.parse(ruta)
     root = tree.getroot()
     try:            
         
