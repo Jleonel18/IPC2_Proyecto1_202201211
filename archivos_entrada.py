@@ -1,7 +1,8 @@
 import xml.etree.ElementTree as ET
-from lista_enlazada.lista_simple_enlazada import lista_siemple_enlazada
+from lista_enlazada.lista_datos import lista_datos
+from lista_enlazada.dato import dato
 
-lista = lista_siemple_enlazada
+lista = lista_datos
 
 def leerXML():
 
@@ -13,50 +14,60 @@ def leerXML():
 
 
     tree  = ET.parse(ruta)
-    root = tree.getroot()
-    try:            
+    root = tree.getroot()            
         
-        for i in root.findall('senal'):
+    for i in root.findall('senal'):
 
-            contador = 0
-            validar_tiempo_senal(i.get('t'))
-            validar_amplitud_senal(i.get('A'))
+        contador = 0
+        validar_tiempo_senal(i.get('t'))
+        validar_amplitud_senal(i.get('A'))
+        tiempo_dato = 0
+        amplitud_dato = 0
+        dato_binario = 0
 
-            for j in i.findall('dato'):
+        for j in i.findall('dato'):
 
-                validar_tiempo_dato(j.get('t'),i.get('t'))
-                validar_amplitud_dato(j.get('A'),i.get('A'))
-                contador +=1
+            if validar_tiempo_dato(j.get('t'),i.get('t')) == True:
+                tiempo_dato = j.get('t')
+            if validar_amplitud_dato(j.get('A'),i.get('A')) == True:
+                amplitud_dato = j.get('A')
+
+            if int(j.text) !=0:
+                dato_binario = 1
+            else:
+                dato_binario = 0
             
-            if contador < int(i.get('t'))*int(i.get('A')):
-                while contador < int(i.get('t'))*int(i.get('A')):
-                    print('Faltaba aqui una linea')
-                    contador+=1
+            nuevo = dato(int(j.text),int(tiempo_dato),int(amplitud_dato),i.text,dato_binario)
+            lista.agregar_ultimo(nuevo)
+            contador +=1
+            
+        if contador < int(i.get('t'))*int(i.get('A')):
+            while contador < int(i.get('t'))*int(i.get('A')):
+                print('Faltaba aqui una linea')
+                contador+=1
                 
-    except Exception as err:
-        print(err)
 
 def validar_tiempo_senal(tiempo):
     if int(tiempo) > 0 and int(tiempo)<=3600:
-        print('El tiempo es',tiempo)
+        return True
     else:
-        print('La dimension de tiempo no es correcta')
+        return False
 
 def validar_amplitud_senal(amplitud):
     if int(amplitud) > 0 and int(amplitud)<=130:
-        print('La amplitud es',amplitud)
+        return True
     else:
-        print('La amplitud no es correcta')
+        return False
 
 def validar_tiempo_dato(tiempo_dato,tiempo_senal):
     if int(tiempo_dato) > int(tiempo_senal):
-        print('El tiempo del dato es mayor al tiempo de la senal')
+        return False
     else:
-        print('El tiempo del dato es',tiempo_dato)
+        return True
 
 def validar_amplitud_dato(amplitud_dato, amplitud_senal):
     if int(amplitud_dato) > int(amplitud_senal):
-        print('La amplitud del dato es mayor a la amplitud de la senal')
+        return False
     else:
-        print('La amplitud del dato es',amplitud_dato)
+        return True
 
