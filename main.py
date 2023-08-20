@@ -1,6 +1,9 @@
-import archivos_entrada as archivos_entrada
+from archivos_entrada import archivos_entrada
+
+archivos_entrada = archivos_entrada()
 
 def menuPrincipal():
+
     print('')
     print('Menu principal:')
     print('    1. Cargar archivo')
@@ -13,10 +16,11 @@ def menuPrincipal():
 
     opcion = input()
     if opcion == '1':
-        archivos_entrada.leerXML()
+        archivos_entrada.cargarXML()
         menuPrincipal()
         print('')    
     elif opcion == '2':
+        archivos_entrada.leerXML()
         menuPrincipal()
     elif opcion == '3':
         menuPrincipal()
