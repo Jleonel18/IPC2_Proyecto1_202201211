@@ -2,7 +2,7 @@ import xml.etree.ElementTree as ET
 from lista_enlazada.lista_datos import lista_datos
 from lista_enlazada.dato import dato
 
-lista = lista_datos
+lista = lista_datos()
 
 def leerXML():
 
@@ -27,24 +27,26 @@ def leerXML():
 
         for j in i.findall('dato'):
 
-            if validar_tiempo_dato(j.get('t'),i.get('t')) == True:
+            if (validar_tiempo_dato(j.get('t'),i.get('t')) == True) and (validar_amplitud_dato(j.get('A'),i.get('A')) == True):
                 tiempo_dato = j.get('t')
-            if validar_amplitud_dato(j.get('A'),i.get('A')) == True:
                 amplitud_dato = j.get('A')
 
-            if int(j.text) !=0:
-                dato_binario = 1
-            else:
-                dato_binario = 0
+                if int(j.text) !=0:
+                    dato_binario = 1
+                else:
+                    dato_binario = 0
             
-            nuevo = dato(int(j.text),int(tiempo_dato),int(amplitud_dato),i.text,dato_binario)
-            lista.agregar_ultimo(nuevo)
+                nuevo = dato(int(j.text),int(tiempo_dato),int(amplitud_dato),i.text,dato_binario)
+                lista.agregar_ultimo(nuevo)
             contador +=1
             
         if contador < int(i.get('t'))*int(i.get('A')):
             while contador < int(i.get('t'))*int(i.get('A')):
-                print('Faltaba aqui una linea')
+                nuevo = dato(0,int(tiempo_dato),int(amplitud_dato),i.text,dato_binario)
+                lista.agregar_ultimo(nuevo)
                 contador+=1
+    
+    lista.recorrido()
                 
 
 def validar_tiempo_senal(tiempo):

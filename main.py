@@ -1,6 +1,4 @@
 import archivos_entrada as archivos_entrada
-#from lista_enlazada.lista_simple_enlazada import lista_siemple_enlazada
-#lista = lista_siemple_enlazada()
 
 def menuPrincipal():
     print('')
@@ -12,15 +10,6 @@ def menuPrincipal():
     print('    5. Generar gráfica')
     print('    6. Inicializar sistema')
     print('    7. Salida')
-    
-    """
-    lista.agregar_ultimo(12)
-    lista.agregar_ultimo(2)
-    lista.agregar_ultimo(25)
-    lista.agregar_ultimo(30)
-    """   
-
-    #lista.recorrido()
 
     opcion = input()
     if opcion == '1':

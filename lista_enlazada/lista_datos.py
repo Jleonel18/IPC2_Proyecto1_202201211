@@ -11,17 +11,25 @@ class lista_datos:
         return self.primero == None
     
     def agregar_ultimo(self,dato):
-        if self.vacia() == True:
-            self.primero = self.ultimo = nodo_dato(dato)
+        new_nodo = nodo_dato(dato)
+        if self.size == 0 or(new_nodo.dato.tiempo, new_nodo.dato.amplitud) < (self.primero.dato.tiempo, self.primero.dato.amplitud):
+            
+            new_nodo.siguiente = self.primero
+            self.primero = new_nodo
+
         else:
-            aux = self.ultimo
-            self.ultimo = aux.siguiente = nodo_dato(dato)
+            aux = self.primero
+            while aux.siguiente is not None and (aux.siguiente.dato.tiempo, aux.siguiente.dato.amplitud) <=(new_nodo.dato.tiempo, new_nodo.dato.amplitud):
+                aux = aux.siguiente
+            new_nodo.siguiente = aux.siguiente
+            aux.siguiente = new_nodo
         self.size+=1
+
 
     def recorrido(self):
         aux = self.primero
         while aux != None:
-            print(aux.dato)
+            print("dato:",aux.dato.dato,"tiempo:",aux.dato.tiempo,"amplitud:",aux.dato.amplitud)
             aux  = aux.siguiente
 
     def eliminar_ultimo(self):
