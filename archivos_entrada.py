@@ -1,6 +1,8 @@
 import xml.etree.ElementTree as ET
 from lista_enlazada.lista_datos import lista_datos
+from lista_enlazada.lista_senal import lista_senal
 from lista_enlazada.dato import dato
+from lista_enlazada.senal import senal
 
 class archivos_entrada():
 
@@ -8,6 +10,7 @@ class archivos_entrada():
         self.archivo = ''
 
     lista = lista_datos()
+    lista_senal = lista_senal()
 
     def leerXML(self):
 
@@ -29,22 +32,26 @@ class archivos_entrada():
                     tiempo_dato = j.get('t')
                     amplitud_dato = j.get('A')
 
-                    if int(j.text) !=0:
+                    if int(j.text) != 0:
                         dato_binario = 1
                     else:
                         dato_binario = 0
                 
-                    nuevo = dato(int(j.text),int(tiempo_dato),int(amplitud_dato),i.text,dato_binario)
+                    nuevo = dato(int(j.text),int(tiempo_dato),int(amplitud_dato),i.get('nombre'),dato_binario)
                     self.lista.agregar_ultimo(nuevo)
                 contador +=1
                 
             if contador < int(i.get('t'))*int(i.get('A')):
                 while contador < int(i.get('t'))*int(i.get('A')):
-                    nuevo = dato(0,int(tiempo_dato),int(amplitud_dato),i.text,dato_binario)
+                    nuevo = dato(0,int(tiempo_dato),int(amplitud_dato),i.get('nombre'),0)
                     self.lista.agregar_ultimo(nuevo)
                     contador+=1
+            nueva_senal = senal(i.get('nombre'),int(i.get('t')),int(i.get('A')))
+            self.lista_senal.agregar_ultimo(nueva_senal)
         
         self.lista.recorrido()
+        print('=============================')
+        self.lista_senal.recorrido()
 
     def cargarXML(self):
         print('')

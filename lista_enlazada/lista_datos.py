@@ -29,7 +29,7 @@ class lista_datos:
     def recorrido(self):
         aux = self.primero
         while aux != None:
-            print("dato:",aux.dato.dato,"tiempo:",aux.dato.tiempo,"amplitud:",aux.dato.amplitud)
+            print("dato:",aux.dato.dato,"tiempo:",aux.dato.tiempo,"amplitud:",aux.dato.amplitud,"senal",aux.dato.senal,"binario",aux.dato.binario)
             aux  = aux.siguiente
 
     def eliminar_ultimo(self):
