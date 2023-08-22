@@ -13,7 +13,7 @@ class lista_datos:
     
     def agregar_ultimo(self,dato):
         new_nodo = nodo_dato(dato)
-        if self.size == 0 or(new_nodo.dato.tiempo, new_nodo.dato.amplitud) > (self.primero.dato.tiempo, self.primero.dato.amplitud):
+        if self.size == 0 or(new_nodo.dato.tiempo, new_nodo.dato.amplitud) < (self.primero.dato.tiempo, self.primero.dato.amplitud):
             
             new_nodo.siguiente = self.primero
             self.primero = new_nodo

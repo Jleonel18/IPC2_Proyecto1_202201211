@@ -46,21 +46,30 @@ class archivos_entrada():
                     lista.agregar_ultimo(nuevo)
                 contador +=1
                 
-            if contador < int(i.get('t'))*int(i.get('A')):
+            """if contador < int(i.get('t'))*int(i.get('A')):
                 while contador < int(i.get('t'))*int(i.get('A')):
                     nuevo = dato(0,int(tiempo_dato),int(amplitud_dato),i.get('nombre'),0)
                     lista.agregar_ultimo(nuevo)
-                    contador+=1
+                    contador+=1"""
+                
+            valor_t = i.get('t')
+            valor_a = i.get('A')
+            coordenadas_existen = set((dato.get('t'),dato.get('A')) for dato in i.findall('dato'))
+
+            for cont1 in range(1,int(valor_t)+1):
+                for cont2 in range(1,int(valor_a)+1):
+                    coordenada = (str(cont1),str(cont2))
+                    if coordenada not in coordenadas_existen:
+                        print("senal:",i.get('nombre'))
+                        print("Falta un dato en tiempo:",str(cont1),"y amplitud:",str(cont2))
+                        nuevo_dato = dato(0,int(cont1),int(cont2),i.get('nombre'),0)
+                        lista.agregar_ultimo(nuevo_dato)
 
             nueva_senal = senal(i.get('nombre'),int(i.get('t')),int(i.get('A')),lista)
             self.lista_senales.agregar_ultimo(nueva_senal)
-        
-        #self.lista.recorrido()
+
         print('=============================')
         self.lista_senales.recorrido()
-
-    """def eliminar_senales(self):
-        self.lista_senales.eliminar_lista()"""
 
     def cargarXML(self):
         print('')
