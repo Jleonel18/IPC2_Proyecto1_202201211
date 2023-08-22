@@ -28,8 +28,11 @@ def menuPrincipal():
         mostrarDatos()
         menuPrincipal()
     elif opcion == '5':
+        archivos_entrada.seleccionar_senal()
         menuPrincipal()
     elif opcion == '6':
+        archivos_entrada.eliminar_senales()
+        print('Programa inicializado con éxito!')
         menuPrincipal()
     elif opcion == '7':
         print('Feliz dia :)')

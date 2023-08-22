@@ -9,15 +9,19 @@ class archivos_entrada():
     def __init__(self):
         self.archivo = ''
 
-    lista = lista_datos()
-    lista_senal = lista_senal()
+    lista_senales = lista_senal()
+
 
     def leerXML(self):
+
+
 
         tree  = ET.parse(self.archivo)
         root = tree.getroot()            
             
         for i in root.findall('senal'):
+
+            lista = lista_datos()
 
             contador = 0
             self.validar_tiempo_senal(i.get('t'))
@@ -25,8 +29,9 @@ class archivos_entrada():
             tiempo_dato = 0
             amplitud_dato = 0
             dato_binario = 0
-
+            
             for j in i.findall('dato'):
+
 
                 if (self.validar_tiempo_dato(j.get('t'),i.get('t')) == True) and (self.validar_amplitud_dato(j.get('A'),i.get('A')) == True):
                     tiempo_dato = j.get('t')
@@ -36,22 +41,26 @@ class archivos_entrada():
                         dato_binario = 1
                     else:
                         dato_binario = 0
-                
+                    print("Los datos ingresados son:",int(j.text),int(tiempo_dato),int(amplitud_dato),i.get('nombre'),dato_binario)
                     nuevo = dato(int(j.text),int(tiempo_dato),int(amplitud_dato),i.get('nombre'),dato_binario)
-                    self.lista.agregar_ultimo(nuevo)
+                    lista.agregar_ultimo(nuevo)
                 contador +=1
                 
             if contador < int(i.get('t'))*int(i.get('A')):
                 while contador < int(i.get('t'))*int(i.get('A')):
                     nuevo = dato(0,int(tiempo_dato),int(amplitud_dato),i.get('nombre'),0)
-                    self.lista.agregar_ultimo(nuevo)
+                    lista.agregar_ultimo(nuevo)
                     contador+=1
-            nueva_senal = senal(i.get('nombre'),int(i.get('t')),int(i.get('A')))
-            self.lista_senal.agregar_ultimo(nueva_senal)
+
+            nueva_senal = senal(i.get('nombre'),int(i.get('t')),int(i.get('A')),lista)
+            self.lista_senales.agregar_ultimo(nueva_senal)
         
-        self.lista.recorrido()
+        #self.lista.recorrido()
         print('=============================')
-        self.lista_senal.recorrido()
+        self.lista_senales.recorrido()
+
+    """def eliminar_senales(self):
+        self.lista_senales.eliminar_lista()"""
 
     def cargarXML(self):
         print('')
@@ -82,4 +91,31 @@ class archivos_entrada():
             return False
         else:
             return True
+    
+    def seleccionar_senal(self):
+        print("")
+        print("")
+        print("Escriba el nombre se la senal que desea imprimir grafica")
+        senal_seleccionada = input()
+        if(self.lista_senales.buscar_senal(senal_seleccionada) != ""):
+            print("")
+            print("")
+            print("Seleccione 1 si desea graficar la matriz normal")
+            print("Seleccione 2 si desea graficar la matriz binaria")
+            print("Seleccione 3 si desea graficar la matriz reducida")
+            seleccion_matriz = input()
+
+            print("")
+            print("")
+
+            if seleccion_matriz == "1":
+                self.lista_senales.grafica_lista_normal(senal_seleccionada)
+            elif seleccion_matriz == "2":
+                self.lista_senales.grafica_lista_binaria(senal_seleccionada)
+            elif seleccion_matriz == "3":
+                pass
+            else: 
+                print("Opcion no valida")
+        else:
+            print("No existe una senal con ese nombre")
 

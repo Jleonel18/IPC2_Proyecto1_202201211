@@ -4,7 +4,6 @@ class lista_senal():
 
     def __init__(self):
         self.primero = None
-        self.ultimo = None
         self.size = 0
 
     def vacia(self):
@@ -28,16 +27,55 @@ class lista_senal():
     def recorrido(self):
         aux = self.primero
         while aux != None:
-            print("senal:",aux.senal.senal,"tiempo:",aux.senal.tiempo,"amplitud:",aux.senal.amplitud)
+            print("senal:",aux.senal.senal,"tiempo:",aux.senal.tiempo,"amplitud:",aux.senal.amplitud,
+                "\ndatos:")
+            aux.senal.lista_datos.recorrido()
             aux = aux.siguiente
+            print("=========================================")
 
-    def eliminar_ultimo(self):
+    def buscar_nombre_senal(self,nombre_senal):
         aux = self.primero
-        while aux.siguiente != self.ultimo:
+        bandera = False
+        while aux != None:
+            if aux.senal.senal == nombre_senal:
+                bandera = True
+                break
             aux = aux.siguiente
 
-        aux.siguiente = None
-        self.ultimo = aux
+        return bandera
+
+    def buscar_senal(self,senal_buscada):
+        aux = self.primero
+        bandera = False
+        while aux != None:
+            if(aux.senal.senal == senal_buscada):
+                bandera = True
+                break
+            aux = aux.siguiente
+            
+        if bandera == True:
+            return aux.senal
+        else:
+            return ""
     
     def verificar_tamano(self):
         return self.size
+    
+    def grafica_lista_normal(self,nombre_senal):
+        actual = self.primero
+            
+        while actual != None:
+            if actual.senal.senal == nombre_senal:
+                
+                actual.senal.lista_datos.generar_grafica(actual.senal.senal, str(actual.senal.tiempo), str(actual.senal.amplitud))
+                break
+            actual = actual.siguiente
+
+    def grafica_lista_binaria(self,nombre_senal):
+        actual = self.primero
+
+        while actual != None:
+            if actual.senal.senal == nombre_senal:
+                actual.senal.lista_datos.generar_grafica_binaria(actual.senal.senal,str(actual.senal.tiempo), str(actual.senal.amplitud))
+                break
+            actual = actual.siguiente
