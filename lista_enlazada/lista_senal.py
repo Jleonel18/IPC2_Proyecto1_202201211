@@ -84,7 +84,7 @@ class lista_senal():
         nodoActual = self.primero
         nodoAnterior = None
 
-        while (nodoActual != None) and nodoActual.senal.senal == nombre_senal:
+        while (nodoActual != None) and (nodoActual.senal.senal != nombre_senal):
             nodoAnterior = nodoActual
             nodoActual = nodoActual.siguiente
 

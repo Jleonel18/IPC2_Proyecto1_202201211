@@ -5,7 +5,6 @@ class lista_datos:
 
     def __init__(self):
         self.primero = None
-        self.ultimo = None
         self.size = 0
     
     def vacia(self):
@@ -33,13 +32,21 @@ class lista_datos:
             print("dato:",aux.dato.dato,"tiempo:",aux.dato.tiempo,"amplitud:",aux.dato.amplitud,"senal",aux.dato.senal,"binario",aux.dato.binario)
             aux  = aux.siguiente
 
-    def eliminar_ultimo(self):
-        aux = self.primero
-        while aux.siguiente != self.ultimo:
-            aux = aux.siguiente
+    
+    def get_dato_posicion(self,posicion):
+
+        if posicion<0 or posicion>self.verificar_tamano():
+            return "Indice fuerea de los limites"
         
-        aux.siguiente = None
-        self.ultimo = aux
+        aux = self.primero
+        contador = 0
+        while contador < self.verificar_tamano():
+            aux = aux.siguiente
+            contador +=1
+
+        return aux.dato     
+
+
 
     def verificar_tamano(self):
         return self.size
@@ -79,7 +86,7 @@ class lista_datos:
         f.write(text)
         f.close()
         os.environ["PATH"] += os.pathsep + 'C:/Program Files/Graphviz/bin'
-        os.system('dot -Tpng bb.dot -o Grafica.png')
+        os.system('dot -Tpng bb.dot -o Grafica_normal.png')
         print("terminado")
 
     def generar_grafica_binaria(self,nombre_senal,tiempo,amplitud):
@@ -117,5 +124,5 @@ class lista_datos:
         f.write(text)
         f.close()
         os.environ["PATH"] += os.pathsep + 'C:/Program Files/Graphviz/bin'
-        os.system('dot -Tpng bb.dot -o Grafica.png')
+        os.system('dot -Tpng bb.dot -o Grafica_binaria.png')
         print("terminado")
