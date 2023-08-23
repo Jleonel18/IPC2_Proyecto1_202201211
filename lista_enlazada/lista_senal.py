@@ -79,3 +79,21 @@ class lista_senal():
                 actual.senal.lista_datos.generar_grafica_binaria(actual.senal.senal,str(actual.senal.tiempo), str(actual.senal.amplitud))
                 break
             actual = actual.siguiente
+    
+    def eliminar_senal(self,nombre_senal):
+        nodoActual = self.primero
+        nodoAnterior = None
+
+        while (nodoActual != None) and nodoActual.senal.senal == nombre_senal:
+            nodoAnterior = nodoActual
+            nodoActual = nodoActual.siguiente
+
+        if nodoActual is None:
+            return
+        
+        if nodoAnterior is None:
+            self.primero = self.primero.siguiente
+        else:
+            nodoAnterior.siguiente = nodoActual.siguiente
+        
+        self.size-=1

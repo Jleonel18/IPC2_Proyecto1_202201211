@@ -64,8 +64,13 @@ class archivos_entrada():
                         print("Falta un dato en tiempo:",str(cont1),"y amplitud:",str(cont2))
                         nuevo_dato = dato(0,int(cont1),int(cont2),i.get('nombre'),0)
                         lista.agregar_ultimo(nuevo_dato)
-
-            nueva_senal = senal(i.get('nombre'),int(i.get('t')),int(i.get('A')),lista)
+            print("Nombre de senal",i.get('nombre'),self.lista_senales.buscar_nombre_senal(i.get('nombre')))
+            if self.lista_senales.buscar_nombre_senal(i.get('nombre'))== False:
+                nueva_senal = senal(i.get('nombre'),int(i.get('t')),int(i.get('A')),lista)
+            else:
+                self.lista_senales.eliminar_senal(i.get('nombre'))
+                nueva_senal = senal(i.get('nombre'),int(i.get('t')),int(i.get('A')),lista)
+            
             self.lista_senales.agregar_ultimo(nueva_senal)
 
         print('=============================')
