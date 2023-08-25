@@ -1,4 +1,5 @@
 from lista_enlazada.nodo_senal import nodo_senal
+from lista_enlazada.grupo import grupo
 
 class lista_senal():
 
@@ -97,3 +98,31 @@ class lista_senal():
             nodoAnterior.siguiente = nodoActual.siguiente
         
         self.size-=1
+    
+    def calcular_patrones(self,nombre_senal):
+        actual = self.primero
+        
+        while actual != None:
+            if actual.senal.senal == nombre_senal:
+                actual.senal.lista_patrones =  actual.senal.lista_datos.devolver_patrones_por_tiempo(actual.senal.lista_patrones)
+                actual.senal.lista_patrones.recorrer_e_imprimir_lista()
+
+                lista_patrones_temporal = actual.senal.lista_patrones
+                grupos_sin_analizar = lista_patrones_temporal.encontrar_coincidencias()
+
+                buffer = ""
+                for digito in grupos_sin_analizar:
+                    if digito.isdigit() or digito==",":
+                        buffer+=digito
+                    elif digito == "-" and buffer!="":
+                        cadena_grupo = actual.senal.lista_datos.devolver_cadena_del_grupo(buffer)
+                        actual.senal.lista_grupos.insertar_dato(grupo = grupo(buffer,cadena_grupo))
+                        buffer=""
+                    else:
+                        buffer=""
+                actual.senal.lista_grupos.recorrer_e_imprimir_lista()
+
+                return
+            
+            actual = actual.siguiente
+        print("no se encontro la senal")

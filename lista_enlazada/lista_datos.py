@@ -1,5 +1,6 @@
 from lista_enlazada.nodo_dato import nodo_dato
 import os
+from lista_enlazada.patron import patron
 
 class lista_datos:
 
@@ -130,3 +131,44 @@ class lista_datos:
         os.environ["PATH"] += os.pathsep + 'C:/Program Files/Graphviz/bin'
         os.system('dot -Tpng bb.dot -o Grafica_binaria.png')
         print("terminado")
+
+
+    def devolver_cadena_del_grupo(self,grupo):
+        string_resultado = ""
+        string_temporal = ""
+        buffer = ""
+        for digito in grupo:
+            if digito.isdigit():
+                buffer+=digito
+            else:
+                string_temporal = ""
+
+                actual = self.primero
+                while actual != None:
+                    if actual.dato.tiempo == int(buffer):
+                        string_temporal += str(actual.dato.dato)+","
+                    actual = actual.siguiente
+                
+                string_resultado+=string_temporal+"\n"
+                buffer=""
+        return string_resultado
+    
+    def devolver_patrones_por_tiempo(self,lista_patrones):
+        actual = self.primero
+        sentinela_de_fila = actual.dato.tiempo
+        fila_iniciada = False
+        recolector_patron = ""
+        while actual != None:
+            if sentinela_de_fila != actual.dato.tiempo:
+                fila_iniciada = False
+                lista_patrones.insertar_dato(patron(sentinela_de_fila,recolector_patron))
+                recolector_patron =""
+                sentinela_de_fila = actual.dato.tiempo
+            if fila_iniciada == False:
+                fila_iniciada = True
+                recolector_patron+=str(actual.dato.binario)+"-"
+            else:
+                recolector_patron += str(actual.dato.binario)+"-"
+            actual = actual.siguiente
+        lista_patrones.insertar_dato(patron(sentinela_de_fila,recolector_patron))
+        return lista_patrones

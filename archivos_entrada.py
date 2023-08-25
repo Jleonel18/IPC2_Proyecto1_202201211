@@ -69,6 +69,7 @@ class archivos_entrada():
                 nueva_senal = senal(i.get('nombre'),int(i.get('t')),int(i.get('A')),lista,lista_patrones_temporal,lista_grupos_temporal)  
             
             self.lista_senales.agregar_ultimo(nueva_senal)
+            self.lista_senales.calcular_patrones(i.get('nombre'))
 
         print('=============================')
         
