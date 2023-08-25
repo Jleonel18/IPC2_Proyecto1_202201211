@@ -3,6 +3,8 @@ from lista_enlazada.lista_datos import lista_datos
 from lista_enlazada.lista_senal import lista_senal
 from lista_enlazada.dato import dato
 from lista_enlazada.senal import senal
+from lista_enlazada.lista_patrones import lista_patrones
+from lista_enlazada.lista_grupos import lista_grupos
 
 class archivos_entrada():
 
@@ -11,7 +13,6 @@ class archivos_entrada():
 
     lista_senales = lista_senal()
     lista_senales_reducida = lista_senal()
-
 
     def leerXML(self):
 
@@ -23,6 +24,8 @@ class archivos_entrada():
         for i in root.findall('senal'):
 
             lista = lista_datos()
+            lista_patrones_temporal = lista_patrones()
+            lista_grupos_temporal = lista_grupos()
 
             contador = 0
             self.validar_tiempo_senal(i.get('t'))
@@ -54,31 +57,23 @@ class archivos_entrada():
                 for cont2 in range(1,int(valor_a)+1):
                     coordenada = (str(cont1),str(cont2))
                     if coordenada not in coordenadas_existen:
-                        print("senal:",i.get('nombre'))
-                        print("Falta un dato en tiempo:",str(cont1),"y amplitud:",str(cont2))
                         nuevo_dato = dato(0,int(cont1),int(cont2),i.get('nombre'),0)
                         lista.agregar_ultimo(nuevo_dato)
 
             if self.lista_senales.buscar_nombre_senal(i.get('nombre'))== False:
-                nueva_senal = senal(i.get('nombre'),int(i.get('t')),int(i.get('A')),lista)
+                nueva_senal = senal(i.get('nombre'),int(i.get('t')),int(i.get('A')),lista,lista_patrones_temporal,lista_grupos_temporal)
             else:
 
                 self.lista_senales.eliminar_senal(i.get('nombre'))
 
-                nueva_senal = senal(i.get('nombre'),int(i.get('t')),int(i.get('A')),lista)
+                nueva_senal = senal(i.get('nombre'),int(i.get('t')),int(i.get('A')),lista,lista_patrones_temporal,lista_grupos_temporal)  
             
             self.lista_senales.agregar_ultimo(nueva_senal)
 
         print('=============================')
         
         self.lista_senales.recorrido()
-        self.crear_senal_reducida('Prueba 1')
-    
-    def crear_senal_reducida(self,nombre_senal):
-        senal_encontrada = self.lista_senales.buscar_senal(nombre_senal)
-        contador_1 =0
-        contador_meta = senal_encontrada.lista_datos.verificar_tamano()
-        print("El numero de datos en la señal es",contador_meta)
+
 
     def cargarXML(self):
         print('')

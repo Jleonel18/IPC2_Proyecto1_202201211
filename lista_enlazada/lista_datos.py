@@ -40,11 +40,15 @@ class lista_datos:
         
         aux = self.primero
         contador = 0
+
         while contador < self.verificar_tamano():
+            if posicion == contador:
+                return aux.dato
+                
             aux = aux.siguiente
             contador +=1
 
-        return aux.dato     
+        #return aux.dato     
 
 
 

@@ -52,7 +52,7 @@ class lista_senal():
                 bandera = True
                 break
             aux = aux.siguiente
-            
+
         if bandera == True:
             return aux.senal
         else:
