@@ -88,7 +88,7 @@ class lista_senal():
         actual = self.primero
         while actual != None:
             if actual.senal.senal == nombre_senal:
-                actual.senal.lista_matriz_suma.generar_grafica()
+                actual.senal.lista_matriz_suma.generar_grafica(actual.senal.senal,str(actual.senal.tiempo),str(actual.senal.amplitud))
             actual = actual.siguiente
 
     def eliminar_senal(self,nombre_senal):

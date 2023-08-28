@@ -1,4 +1,5 @@
 from lista_enlazada.nodo_matriz_suma import nodo_matriz_suma
+import os
 
 class lista_matriz_suma:
 
@@ -36,4 +37,49 @@ class lista_matriz_suma:
             return valor_actual
         else:
             raise StopIteration
+        
+    def generar_grafica(self,nombre,tiempo,amplitud):
+        f = open('bb.dot','w')
+
+        text ="""
+            digraph G {"Amplitud="""+amplitud+""""->" """+nombre+ """" bgcolor="#3990C4" style="filled"
+            subgraph cluster1 {fillcolor="blue:red" style="filled"
+            node [ fillcolor="gold:brown" style="radial" gradientangle=180]
+            a0 [ label=<
+            <TABLE border="10" cellspacing="10" cellpadding="10" style="rounded" bgcolor="blue:red" gradientangle="315">\n"""
+        aux = self.primero
+        sentinela_de_filas=aux.dato.grupo
+        fila_iniciada=False
+        
+        text+="""<TR><TD border="3"  bgcolor="yellow" gradientangle="315">"""+"Grupo="+str(aux.dato.grupo)+" t="+str(aux.dato.tiempo)+"""</TD>\n"""
+        while aux != None:
+
+            
+            if sentinela_de_filas!=aux.dato.grupo:
+                
+                sentinela_de_filas=aux.dato.grupo
+                
+                fila_iniciada=False
+
+                text+="""</TR>\n""" 
+                text+="""<TR>"""  
+                text+="""<TD border="3"  bgcolor="yellow" gradientangle="315">"""+"Grupo="+str(aux.dato.grupo)+" t="+str(aux.dato.tiempo)+"""</TD>\n"""
+            if fila_iniciada==False:
+                fila_iniciada=True
+
+                
+                text+="""<TD border="3"  bgcolor="yellow" gradientangle="315">"""+str(aux.dato.valor)+"""</TD>\n"""
+            else:
+                text+="""<TD border="3"  bgcolor="yellow" gradientangle="315">"""+str(aux.dato.valor)+"""</TD>\n"""
+            aux = aux.siguiente
+        text+=""" </TR></TABLE>>];
+                }
+                }\n"""
+        
+        f.write(text)
+        f.close()
+        os.environ["PATH"] += os.pathsep + 'C:/Program Files/Graphviz/bin'
+        os.system(f"dot -Tpng bb.dot -o matriz-reducida.png")
+        print("terminado")
+
 

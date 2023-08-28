@@ -130,7 +130,7 @@ class archivos_entrada():
             elif seleccion_matriz == "2":
                 self.lista_senales.grafica_lista_binaria(senal_seleccionada)
             elif seleccion_matriz == "3":
-                pass
+                self.lista_senales.grafica_lista_reducida(senal_seleccionada)
             else: 
                 print("Opcion no valida")
         else:
