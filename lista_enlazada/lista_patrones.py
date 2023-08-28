@@ -60,6 +60,7 @@ class lista_patrones:
                 else:
                     if buffer !="":
                         self.eliminar(int(buffer))
+                        buffer = ""
                     else:
                         buffer = ""
             resultado += temp_grupo_patron+"--"

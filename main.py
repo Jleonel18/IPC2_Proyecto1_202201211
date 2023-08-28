@@ -23,6 +23,7 @@ def menuPrincipal():
         archivos_entrada.leerXML()
         menuPrincipal()
     elif opcion == '3':
+        archivos_entrada.escribir_nombre_archivo()
         menuPrincipal()
     elif opcion == '4':
         mostrarDatos()

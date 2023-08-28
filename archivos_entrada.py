@@ -5,6 +5,7 @@ from lista_enlazada.dato import dato
 from lista_enlazada.senal import senal
 from lista_enlazada.lista_patrones import lista_patrones
 from lista_enlazada.lista_grupos import lista_grupos
+from lista_enlazada.lista_matriz_suma import lista_matriz_suma
 
 class archivos_entrada():
 
@@ -26,6 +27,7 @@ class archivos_entrada():
             lista = lista_datos()
             lista_patrones_temporal = lista_patrones()
             lista_grupos_temporal = lista_grupos()
+            lista_matriz_suma_temporal = lista_matriz_suma()
 
             contador = 0
             self.validar_tiempo_senal(i.get('t'))
@@ -61,15 +63,16 @@ class archivos_entrada():
                         lista.agregar_ultimo(nuevo_dato)
 
             if self.lista_senales.buscar_nombre_senal(i.get('nombre'))== False:
-                nueva_senal = senal(i.get('nombre'),int(i.get('t')),int(i.get('A')),lista,lista_patrones_temporal,lista_grupos_temporal)
+                nueva_senal = senal(i.get('nombre'),int(i.get('t')),int(i.get('A')),lista,lista_patrones_temporal,lista_grupos_temporal,lista_matriz_suma_temporal)
             else:
 
                 self.lista_senales.eliminar_senal(i.get('nombre'))
 
-                nueva_senal = senal(i.get('nombre'),int(i.get('t')),int(i.get('A')),lista,lista_patrones_temporal,lista_grupos_temporal)  
+                nueva_senal = senal(i.get('nombre'),int(i.get('t')),int(i.get('A')),lista,lista_patrones_temporal,lista_grupos_temporal,lista_matriz_suma_temporal)  
             
             self.lista_senales.agregar_ultimo(nueva_senal)
-            self.lista_senales.calcular_patrones(i.get('nombre'))
+            self.lista_senales.calcular_patrones(i.get('nombre'),lista_matriz_suma_temporal)
+            self.lista_senales.lista_temporal(lista_matriz_suma_temporal,i.get('nombre'))
 
         print('=============================')
         
@@ -132,4 +135,13 @@ class archivos_entrada():
                 print("Opcion no valida")
         else:
             print("No existe una senal con ese nombre")
+
+    def escribir_nombre_archivo(self):
+        print("")
+        print("")
+        print("")
+        print("Escriba el nombre y la extensión del archivo")
+        ruta = input()
+        self.lista_senales.crear_xml(ruta)
+
 

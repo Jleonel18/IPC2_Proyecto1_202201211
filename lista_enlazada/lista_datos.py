@@ -172,3 +172,15 @@ class lista_datos:
             actual = actual.siguiente
         lista_patrones.insertar_dato(patron(sentinela_de_fila,recolector_patron))
         return lista_patrones
+
+    def __iter__(self):
+        self.actual = self.primero
+        return self
+
+    def __next__(self):
+        if self.actual is not None:
+            valor_actual = self.actual
+            self.actual = self.actual.siguiente
+            return valor_actual
+        else:
+            raise StopIteration
