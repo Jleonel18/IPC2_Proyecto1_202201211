@@ -150,7 +150,7 @@ class lista_senal():
                     contador += 1
                     if contador == len(tiempo_sin_comas):
                         string_resultado+=str(suma_datos)+","
-                        lista.insertar_dato(matriz_suma(datos_leidos.dato.tiempo,datos_leidos.dato.amplitud,suma_datos,cantidad_grupo))
+                        lista.insertar_dato(matriz_suma(grupo,datos_leidos.dato.amplitud,suma_datos,cantidad_grupo))
 
             contador = 0
             suma_datos = 0
