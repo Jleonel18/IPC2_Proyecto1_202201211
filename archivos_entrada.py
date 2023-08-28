@@ -144,4 +144,9 @@ class archivos_entrada():
         ruta = input()
         self.lista_senales.crear_xml(ruta)
 
-
+    def limpiar_todo(self):
+        print("")
+        print("")
+        print("")
+        self.lista_senales.eliminar_todo()
+        print("Programa inicializado con exito!!")

@@ -201,4 +201,11 @@ class lista_senal():
             else:
                 elemento.tail = '\n' + indentado*(nivel-1)
             fila[0:0] = children
-        
+
+
+    def eliminar_todo(self):
+        while self.primero:
+            aux = self.primero
+            self.primero = self.primero.siguiente
+            del aux
+            

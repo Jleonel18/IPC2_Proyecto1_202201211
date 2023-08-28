@@ -32,8 +32,7 @@ def menuPrincipal():
         archivos_entrada.seleccionar_senal()
         menuPrincipal()
     elif opcion == '6':
-        archivos_entrada.eliminar_senales()
-        print('Programa inicializado con éxito!')
+        archivos_entrada.limpiar_todo()
         menuPrincipal()
     elif opcion == '7':
         print('Feliz dia :)')
