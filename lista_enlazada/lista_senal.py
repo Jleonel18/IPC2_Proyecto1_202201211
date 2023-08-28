@@ -84,6 +84,13 @@ class lista_senal():
                 break
             actual = actual.siguiente
     
+    def grafica_lista_reducida(self,nombre_senal):
+        actual = self.primero
+        while actual != None:
+            if actual.senal.senal == nombre_senal:
+                actual.senal.lista_matriz_suma.generar_grafica()
+            actual = actual.siguiente
+
     def eliminar_senal(self,nombre_senal):
         nodoActual = self.primero
         nodoAnterior = None
@@ -118,7 +125,7 @@ class lista_senal():
                         buffer+=digito
                     elif digito == "-" and buffer!="":
                         cadena_grupo = actual.senal.lista_datos.devolver_cadena_del_grupo(buffer)
-                        actual.senal.lista_grupos.insertar_dato(grupo = grupo(buffer,cadena_grupo,actual.senal.lista_grupos.get_size()))
+                        actual.senal.lista_grupos.insertar_dato(grupo = grupo(buffer,cadena_grupo,(actual.senal.lista_grupos.get_size()+1)))
                         self.sumar_lista(actual.senal.lista_datos,actual.senal.amplitud,buffer,actual.senal.lista_grupos.get_size(),suma)
                         buffer=""
                     else:
@@ -160,7 +167,7 @@ class lista_senal():
         senales_reducidas =  ET.Element("Senales-reducidas")
         aux = self.primero
 
-        while aux != None:
+        while aux:
             senal_reducida = ET.SubElement(senales_reducidas,"senal",nombre_archivo=f'{aux.senal.senal}',A=f'{aux.senal.amplitud}')
             almacen = aux.senal.lista_grupos
 
@@ -173,7 +180,8 @@ class lista_senal():
                 datos_grupos = aux.senal.lista_matriz_suma
 
                 for i in datos_grupos:
-                    if i.dato.grupo == al.grupo.veces_ingresada:
+                    
+                    if (i.dato.grupo) == (al.grupo.veces_ingresada):
                         dato = ET.SubElement(datos_grupal,"dato",A=f"{i.dato.amplitud}")
                         dato.text = str(i.dato.valor)
 
@@ -185,21 +193,20 @@ class lista_senal():
         tree.write(f"{nombre_archivo}.xml", encoding="utf-8", xml_declaration=True)
 
 
-    def ordenar_xml(self,elemento):
+    def ordenar_xml(self,elemento,indentado ="    "):
 
-        indentado ="    "
         fila = [(0,elemento)]
 
         while fila:
             nivel, elemento = fila.pop(0)
             children = [(nivel + 1, child) for child in list(elemento)]
             if children:
-                elemento.text = '\n'+indentado*(nivel+1)
+                elemento.text = '\n'+ indentado * (nivel+1)
             
             if fila:
-                elemento.tail = '\n' + indentado[0][0]
+                elemento.tail = '\n' + indentado * fila[0][0]
             else:
-                elemento.tail = '\n' + indentado*(nivel-1)
+                elemento.tail = '\n' + indentado * (nivel-1)
             fila[0:0] = children
 
 
