@@ -80,6 +80,6 @@ class lista_matriz_suma:
         f.close()
         os.environ["PATH"] += os.pathsep + 'C:/Program Files/Graphviz/bin'
         os.system(f"dot -Tpng bb.dot -o matriz-reducida.png")
-        print("terminado")
+        print(">Grafica Matriz sumada terminada...")
 
 

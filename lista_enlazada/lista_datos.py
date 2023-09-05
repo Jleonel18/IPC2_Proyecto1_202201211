@@ -92,7 +92,7 @@ class lista_datos:
         f.close()
         os.environ["PATH"] += os.pathsep + 'C:/Program Files/Graphviz/bin'
         os.system('dot -Tpng bb.dot -o Grafica_normal.png')
-        print("terminado")
+        print(">Grafica normal terminada...")
 
     def generar_grafica_binaria(self,nombre_senal,tiempo,amplitud):
         
@@ -130,7 +130,7 @@ class lista_datos:
         f.close()
         os.environ["PATH"] += os.pathsep + 'C:/Program Files/Graphviz/bin'
         os.system('dot -Tpng bb.dot -o Grafica_binaria.png')
-        print("terminado")
+        print(">Grafica binaria terminada")
 
 
     def devolver_cadena_del_grupo(self,grupo):

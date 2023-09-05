@@ -37,7 +37,7 @@ class archivos_entrada():
                 dato_binario = 0
                 
                 for j in i.findall('dato'):
-
+                    print(">Leyendo los datos...")
 
                     if (self.validar_tiempo_dato(j.get('t'),i.get('t')) == True) and (self.validar_amplitud_dato(j.get('A'),i.get('A')) == True):
                         tiempo_dato = j.get('t')
@@ -60,6 +60,7 @@ class archivos_entrada():
                         coordenada = (str(cont1),str(cont2))
                         if coordenada not in coordenadas_existen:
                             nuevo_dato = dato(0,int(cont1),int(cont2),i.get('nombre'),0)
+                            print(">Creando lista normal...")
                             lista.agregar_ultimo(nuevo_dato)
 
                 if self.lista_senales.buscar_nombre_senal(i.get('nombre'))== False:
@@ -69,7 +70,7 @@ class archivos_entrada():
                     self.lista_senales.eliminar_senal(i.get('nombre'))
 
                     nueva_senal = senal(i.get('nombre'),int(i.get('t')),int(i.get('A')),lista,lista_patrones_temporal,lista_grupos_temporal,lista_matriz_suma_temporal)  
-                
+                print(">Creando lista reducida...")
                 self.lista_senales.agregar_ultimo(nueva_senal)
                 self.lista_senales.calcular_patrones(i.get('nombre'),lista_matriz_suma_temporal)
                 self.lista_senales.lista_temporal(lista_matriz_suma_temporal,i.get('nombre'))
