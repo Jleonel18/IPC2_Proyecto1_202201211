@@ -142,14 +142,13 @@ class lista_senal():
         contador = 0
         string_resultado = ""
         tiempo_sin_comas = grupo.replace(",","")
-        cont_comas = grupo.count(',')
         for i in range(1, int(amplitud)+1):
             for datos_leidos in lista_datos:
                 
-                if self.analizar(str(datos_leidos.dato.tiempo),grupo) and int(datos_leidos.dato.amplitud) == i:
+                if str(datos_leidos.dato.tiempo) in grupo and int(datos_leidos.dato.amplitud) == i:
                     suma_datos = suma_datos + int(datos_leidos.dato.dato)
                     contador += 1
-                    if contador == cont_comas:
+                    if contador == len(tiempo_sin_comas):
                         string_resultado+=str(suma_datos)+","
                         lista.insertar_dato(matriz_suma(grupo,datos_leidos.dato.amplitud,suma_datos,cantidad_grupo))
 
@@ -163,18 +162,6 @@ class lista_senal():
                 aux.senal.lista_matriz_suma = lista
                 return
             aux = aux.siguiente
-
-    def analizar(self,analizar_tiempo,tiempos):
-        inicio = 0
-        final = 0
-        while final <= len(tiempos):
-            if final == len(tiempos) or tiempos[final] == ',':
-                tiempo_actual = tiempos[inicio:final]
-                if tiempo_actual == analizar_tiempo:
-                    return True
-                inicio = final + 1
-            final += 1
-        return False
 
     def crear_xml(self,nombre_archivo):
         senales_reducidas =  ET.Element("Senales-reducidas")
@@ -228,4 +215,3 @@ class lista_senal():
             aux = self.primero
             self.primero = self.primero.siguiente
             del aux
-        self.size = 0
