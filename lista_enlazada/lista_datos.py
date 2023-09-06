@@ -62,10 +62,10 @@ class lista_datos:
         # configuraciones del grafo
         text ="""
             digraph G {"tiempos="""+tiempo+"""","amplitudes="""+amplitud+""""->" """+nombre_senal+ """" bgcolor="#3990C4" style="filled"
-            subgraph cluster1 {fillcolor="blue:red" style="filled"
-            node [shape=circle fillcolor="gold:brown" style="radial" gradientangle=180]
+            subgraph cluster1 {fillcolor="yellow" style="filled"
+            node [shape=circle fillcolor="blue" style="radial" gradientangle=180]
             a0 [ label=<
-            <TABLE border="10" cellspacing="10" cellpadding="10" style="rounded" bgcolor="blue:red" gradientangle="315">\n"""
+            <TABLE border="10" cellspacing="10" cellpadding="10" style="rounded" bgcolor="blue:yellow" gradientangle="315">\n"""
         actual = self.primero
         sentinela_de_filas=actual.dato.tiempo #iniciaria en 1
         fila_iniciada=False
@@ -100,10 +100,10 @@ class lista_datos:
         # configuraciones del grafo
         text ="""
             digraph G {"tiempos="""+tiempo+"""","amplitudes="""+amplitud+""""->" """+nombre_senal+ """" bgcolor="#3990C4" style="filled"
-            subgraph cluster1 {fillcolor="blue:red" style="filled"
-            node [shape=circle fillcolor="gold:brown" style="radial" gradientangle=180]
+            subgraph cluster1 {fillcolor="yellow" style="filled"
+            node [shape=circle fillcolor="blue" style="radial" gradientangle=180]
             a0 [ label=<
-            <TABLE border="10" cellspacing="10" cellpadding="10" style="rounded" bgcolor="blue:red" gradientangle="315">\n"""
+            <TABLE border="10" cellspacing="10" cellpadding="10" style="rounded" bgcolor="blue:yellow" gradientangle="315">\n"""
         actual = self.primero
         sentinela_de_filas=actual.dato.tiempo #iniciaria en 1
         fila_iniciada=False

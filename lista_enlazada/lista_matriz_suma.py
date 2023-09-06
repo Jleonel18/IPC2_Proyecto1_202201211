@@ -43,10 +43,10 @@ class lista_matriz_suma:
 
         text ="""
             digraph G {"Amplitud="""+amplitud+""""->" """+nombre+ """" bgcolor="#3990C4" style="filled"
-            subgraph cluster1 {fillcolor="blue:red" style="filled"
-            node [ fillcolor="gold:brown" style="radial" gradientangle=180]
+            subgraph cluster1 {fillcolor="yellow" style="filled"
+            node [ fillcolor="blue" style="radial" gradientangle=180]
             a0 [ label=<
-            <TABLE border="10" cellspacing="10" cellpadding="10" style="rounded" bgcolor="blue:red" gradientangle="315">\n"""
+            <TABLE border="10" cellspacing="10" cellpadding="10" style="rounded" bgcolor="blue:yellow" gradientangle="315">\n"""
         aux = self.primero
         sentinela_de_filas=aux.dato.grupo
         fila_iniciada=False
