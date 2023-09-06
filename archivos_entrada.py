@@ -30,52 +30,53 @@ class archivos_entrada():
             lista_matriz_suma_temporal = lista_matriz_suma()
 
             contador = 0
-            if (self.validar_amplitud_senal(i.get('A')) == True) and (self.validar_tiempo_senal(i.get('t'))==True):
+            self.validar_tiempo_senal(i.get('t'))
+            self.validar_amplitud_senal(i.get('A'))
+            tiempo_dato = 0
+            amplitud_dato = 0
+            dato_binario = 0
+            
+            for j in i.findall('dato'):
+
+
+                if (self.validar_tiempo_dato(j.get('t'),i.get('t')) == True) and (self.validar_amplitud_dato(j.get('A'),i.get('A')) == True):
+                    tiempo_dato = j.get('t')
+                    amplitud_dato = j.get('A')
+
+                    if int(j.text) != 0:
+                        dato_binario = 1
+                    else:
+                        dato_binario = 0
+                    nuevo = dato(int(j.text),int(tiempo_dato),int(amplitud_dato),i.get('nombre'),dato_binario)
+                    lista.agregar_ultimo(nuevo)
+                contador +=1
                 
-                tiempo_dato = 0
-                amplitud_dato = 0
-                dato_binario = 0
-                
-                for j in i.findall('dato'):
-                    print(">Leyendo los datos...")
+            valor_t = i.get('t')
+            valor_a = i.get('A')
+            coordenadas_existen = set((dato.get('t'),dato.get('A')) for dato in i.findall('dato'))
 
-                    if (self.validar_tiempo_dato(j.get('t'),i.get('t')) == True) and (self.validar_amplitud_dato(j.get('A'),i.get('A')) == True):
-                        tiempo_dato = j.get('t')
-                        amplitud_dato = j.get('A')
+            for cont1 in range(1,int(valor_t)+1):
+                for cont2 in range(1,int(valor_a)+1):
+                    coordenada = (str(cont1),str(cont2))
+                    if coordenada not in coordenadas_existen:
+                        nuevo_dato = dato(0,int(cont1),int(cont2),i.get('nombre'),0)
+                        lista.agregar_ultimo(nuevo_dato)
 
-                        if int(j.text) != 0:
-                            dato_binario = 1
-                        else:
-                            dato_binario = 0
-                        nuevo = dato(int(j.text),int(tiempo_dato),int(amplitud_dato),i.get('nombre'),dato_binario)
-                        lista.agregar_ultimo(nuevo)
-                    contador +=1
-                    
-                valor_t = i.get('t')
-                valor_a = i.get('A')
-                coordenadas_existen = set((dato.get('t'),dato.get('A')) for dato in i.findall('dato'))
+            if self.lista_senales.buscar_nombre_senal(i.get('nombre'))== False:
+                nueva_senal = senal(i.get('nombre'),int(i.get('t')),int(i.get('A')),lista,lista_patrones_temporal,lista_grupos_temporal,lista_matriz_suma_temporal)
+            else:
 
-                for cont1 in range(1,int(valor_t)+1):
-                    for cont2 in range(1,int(valor_a)+1):
-                        coordenada = (str(cont1),str(cont2))
-                        if coordenada not in coordenadas_existen:
-                            nuevo_dato = dato(0,int(cont1),int(cont2),i.get('nombre'),0)
-                            print(">Creando lista normal...")
-                            lista.agregar_ultimo(nuevo_dato)
+                self.lista_senales.eliminar_senal(i.get('nombre'))
 
-                if self.lista_senales.buscar_nombre_senal(i.get('nombre'))== False:
-                    nueva_senal = senal(i.get('nombre'),int(i.get('t')),int(i.get('A')),lista,lista_patrones_temporal,lista_grupos_temporal,lista_matriz_suma_temporal)
-                else:
+                nueva_senal = senal(i.get('nombre'),int(i.get('t')),int(i.get('A')),lista,lista_patrones_temporal,lista_grupos_temporal,lista_matriz_suma_temporal)  
+            print("---->Creando matriz reducida...")
+            print("----->Matriz reducida Finalizada")
+            self.lista_senales.agregar_ultimo(nueva_senal)
+            self.lista_senales.calcular_patrones(i.get('nombre'),lista_matriz_suma_temporal)
+            self.lista_senales.lista_temporal(lista_matriz_suma_temporal,i.get('nombre'))
 
-                    self.lista_senales.eliminar_senal(i.get('nombre'))
-
-                    nueva_senal = senal(i.get('nombre'),int(i.get('t')),int(i.get('A')),lista,lista_patrones_temporal,lista_grupos_temporal,lista_matriz_suma_temporal)  
-                print(">Creando lista reducida...")
-                self.lista_senales.agregar_ultimo(nueva_senal)
-                self.lista_senales.calcular_patrones(i.get('nombre'),lista_matriz_suma_temporal)
-                self.lista_senales.lista_temporal(lista_matriz_suma_temporal,i.get('nombre'))
-
-        print('=============================')    
+        print('=============================')
+        
         self.lista_senales.recorrido()
 
 

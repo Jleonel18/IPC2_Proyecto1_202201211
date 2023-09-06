@@ -164,6 +164,7 @@ class lista_senal():
             aux = aux.siguiente
 
     def crear_xml(self,nombre_archivo):
+        print("------->Generando XML")
         senales_reducidas =  ET.Element("Senales-reducidas")
         aux = self.primero
 
@@ -189,7 +190,8 @@ class lista_senal():
         
         self.ordenar_xml(senales_reducidas)
         tree = ET.ElementTree(senales_reducidas)
-        print("XML Finalizado!")
+        
+        print("------->XML Finalizado!")
         tree.write(f"{nombre_archivo}.xml", encoding="utf-8", xml_declaration=True)
 
 
@@ -215,3 +217,4 @@ class lista_senal():
             aux = self.primero
             self.primero = self.primero.siguiente
             del aux
+        self.size = 0
